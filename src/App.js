@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Nav from './views/Nav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Todo from './views/Todo';
 
@@ -13,6 +13,10 @@ function App() {
     { id: 'todo2', title: 'Listing music', type: '222' },
     { id: 'todo3', title: 'Fishing', type: '333' }
   ])
+
+  useEffect(() => {
+    console.log('run use effect');
+  }, [todos])
 
   const handleEventClick = () => {
     //hook not merge stage

@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify'
 
 const Todo = (props) => {
     // const todos = props.todos

@@ -4,20 +4,27 @@ import { toast } from 'react-toastify'
 
 const ListUser = () => {
     let [dataUser, setDataUser] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true)
+    const [isError, setIsError] = useState(false)
 
     // = componentDidmount() {}
     useEffect(() => {
         const fetchData = async () => {
-            let res = await axios.get('https://reqres.in/api/users?page=1')
-            let data = res && res.data && res.data.data ? res.data.data : [];
-            setDataUser(data);
-            setLoading(false)
+            try {
+                let res = await axios.get('https://1reqres.in/api/users?page=1')
+                let data = res && res.data && res.data.data ? res.data.data : [];
+                setDataUser(data);
+                setIsLoading(false)
+                setIsError(false)
+            } catch (error) {
+                setIsError(true)
+                setIsLoading(false)
+            }
+
         }
 
-        setTimeout(() => {
-            fetchData();
-        }, 2000)
+        fetchData()
+
     }, [])
 
     return (
@@ -32,7 +39,7 @@ const ListUser = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {loading === false && dataUser && dataUser.length > 0 &&
+                    {isError === false && isLoading === false && dataUser && dataUser.length > 0 &&
                         dataUser.map(user => {
                             return (
                                 <tr key={user.id}>
@@ -43,9 +50,14 @@ const ListUser = () => {
                                 </tr>
                             )
                         })}
-                    {loading === true &&
+                    {isLoading === true &&
                         <tr>
                             <td colSpan={5} style={{ textAlign: 'center' }}>Loading data...</td>
+                        </tr>
+                    }
+                    {isError === true &&
+                        <tr>
+                            <td colSpan={5} style={{ textAlign: 'center' }}>Something wrong...</td>
                         </tr>
                     }
                 </tbody>

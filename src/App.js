@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Todo from './views/Todo';
 import ListUser from './views/ListUser';
+import { CountDown, NewCountDown } from './views/Countdown';
 
 function App() {
   let [name, setName] = useState('NCP')
@@ -44,11 +45,18 @@ function App() {
     setTodos(currentTodo)
   }
 
+  const onTimesup = () => {
+    toast.info('Times up')
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <Nav />
         <img src={logo} className="App-logo" alt="logo" />
+        <CountDown onTimesup={onTimesup} />
+        <span>-----------------------</span>
+        <NewCountDown onTimesup={onTimesup} />
         <h1>Hello {name}</h1>
         <ListUser />
 

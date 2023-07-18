@@ -19,12 +19,17 @@ const useFetch = (url) => {
                     setIsError(false)
                 }
             } catch (error) {
+                if (axios.isCancel(error)) {
+                    console.log('Request canceled ', error.message);
+                }
                 setIsError(true)
                 setIsLoading(false)
             }
 
         }
-        fetchData()
+        setTimeout(() => {
+            fetchData()
+        }, 2000);
         return () => (canceled = true)
     }, [])
 

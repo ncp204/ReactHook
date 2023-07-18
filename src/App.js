@@ -7,6 +7,14 @@ import Todo from './views/Todo';
 import ListUser from './views/ListUser';
 import { CountDown, NewCountDown } from './views/Countdown';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
+import UserDetail from './views/UserDetail';
+
 function App() {
   let [name, setName] = useState('NCP')
   const [address, setAddress] = useState('')
@@ -17,7 +25,7 @@ function App() {
   ])
 
   useEffect(() => {
-    console.log('run use effect');
+    // console.log('run use effect');
   }, [todos])
 
   const handleEventClick = () => {
@@ -50,32 +58,39 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Nav />
-        <img src={logo} className="App-logo" alt="logo" />
-        <CountDown onTimesup={onTimesup} />
-        <span>-----------------------</span>
-        <NewCountDown onTimesup={onTimesup} />
-        <h1>Hello {name}</h1>
-        <ListUser />
-
-        {/* <Todo
-          todos={todos}
-          title={'All todos'}
-          handleDeleteTodo={handleDeleteTodo}
-        />
-        <Todo
-          todos={todos.filter(todo => todo.type === '111')}
-          title={'All todos of 111'}
-          handleDeleteTodo={handleDeleteTodo}
-        />
-        <input type='text' value={address} onChange={(event) => handleOnChangeInput(event)} />
-        <button type='button' onClick={() => handleEventClick()}>Click me</button> */}
-
-      </header>
-
-    </div>
+    <Router>
+      <div className="App">
+        <header className="App-header" style={{ marginBottom: '20px' }}>
+          <Nav />
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        <Switch>
+          <Route path='/' exact>
+            <ListUser />
+          </Route>
+          <Route path='/user/:id'>
+            <UserDetail />
+          </Route>
+          <Route path='/timer'>
+            <CountDown onTimesup={onTimesup} />
+            <span>-----------------------</span>
+            <NewCountDown onTimesup={onTimesup} />
+          </Route>
+          <Route path='/todos'>
+            <Todo
+              todos={todos}
+              title={'All todos'}
+              handleDeleteTodo={handleDeleteTodo}
+            />
+            <input type='text' value={address} onChange={(event) => handleOnChangeInput(event)} />
+            <button type='button' onClick={() => handleEventClick()}>Click me</button>
+          </Route>
+          {/* <Route path='/'>
+            <ListUser />
+          </Route> */}
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

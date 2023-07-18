@@ -1,31 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify'
+import useFetch from '../customize/fetch';
 
 const ListUser = () => {
-    let [dataUser, setDataUser] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [isError, setIsError] = useState(false)
-
-    // = componentDidmount() {}
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let res = await axios.get('https://1reqres.in/api/users?page=1')
-                let data = res && res.data && res.data.data ? res.data.data : [];
-                setDataUser(data);
-                setIsLoading(false)
-                setIsError(false)
-            } catch (error) {
-                setIsError(true)
-                setIsLoading(false)
-            }
-
-        }
-
-        fetchData()
-
-    }, [])
+    const { data: dataUser, isLoading, isError } = useFetch('https://reqres.in/api/users?page=1')
 
     return (
         <>

@@ -4,6 +4,7 @@ import Nav from './views/Nav';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Todo from './views/Todo';
+import ListUser from './views/ListUser';
 
 function App() {
   let [name, setName] = useState('NCP')
@@ -49,7 +50,9 @@ function App() {
         <Nav />
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Hello {name}</h1>
-        <Todo
+        <ListUser />
+
+        {/* <Todo
           todos={todos}
           title={'All todos'}
           handleDeleteTodo={handleDeleteTodo}
@@ -60,7 +63,8 @@ function App() {
           handleDeleteTodo={handleDeleteTodo}
         />
         <input type='text' value={address} onChange={(event) => handleOnChangeInput(event)} />
-        <button type='button' onClick={() => handleEventClick()}>Click me</button>
+        <button type='button' onClick={() => handleEventClick()}>Click me</button> */}
+
       </header>
 
     </div>

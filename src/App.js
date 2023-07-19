@@ -14,6 +14,7 @@ import {
   Link
 } from 'react-router-dom'
 import UserDetail from './views/UserDetail';
+import ErrorPage from './views/ErrorPage';
 
 function App() {
   let [name, setName] = useState('NCP')
@@ -88,6 +89,9 @@ function App() {
           {/* <Route path='/'>
             <ListUser />
           </Route> */}
+          <Route path='*'>
+            <ErrorPage />
+          </Route>
         </Switch>
       </div>
     </Router>
